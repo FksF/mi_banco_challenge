@@ -1,0 +1,52 @@
+<section class="calculator">
+  <div class="calculator__content">
+    <h2 class="title-3">Calculadora Tipo de Cambio</h2>
+    <p class="sub-title">Escribe el monto que deseas convertir*💰</p>
+    <div class="tags" *ngIf="isSellFirst">
+      <span class="tags__tag">Venta: {{ sell | currency: 'S/. ' }}</span>
+      <span class="tags__tag">Compra: {{ buy | currency: 'S/. ' }}</span>
+    </div>
+    <div class="tags" *ngIf="!isSellFirst">
+      <span class="tags__tag">Compra: {{ buy | currency: 'S/. ' }}</span>
+      <span class="tags__tag">Venta: {{ sell | currency: 'S/. ' }}</span>
+    </div>
+    <form [formGroup]="form" class="form">
+      <div>
+        <p-inputNumber
+          [formControlName]="isSellFirst ? 'origen' : 'destino'"
+          class="p-fluid"
+          mode="currency"
+          (onInput)="convert()"
+          [currency]="!isSellFirst ? 'PEN':currencyBase"
+          [locale]="!isSellFirst ? 'es-PE' : 'en-US'"
+        />
+      </div>
+      <p-button
+        label="Change"
+        [rounded]="true"
+        [disabled]="false"
+        (onClick)="interchange()"
+      />
+      <div>
+        <p-inputNumber
+          [formControlName]="!isSellFirst ? 'origen' : 'destino'"
+          class="p-fluid"
+          mode="currency"
+          (onInput)="convert()"
+          [currency]="isSellFirst ? 'PEN':currencyBase"
+          [locale]="isSellFirst ? 'es-PE' : 'en-US'"
+        />
+      </div>
+    </form>
+    <div>
+      <p class="sub-title">Cambiar moneda:</p>
+      <p-dropdown 
+        [options]="coins" 
+        placeholder="Selecciona moneda"
+        [(ngModel)]="currencyBase"
+        [editable]="false" 
+        (onChange)="changeCurrency($event)"
+        optionLabel="key" />
+    </div>
+  </div>
+</section>
