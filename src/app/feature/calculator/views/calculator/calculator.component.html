@@ -40,11 +40,11 @@
     </form>
     <div>
       <p class="sub-title">Cambiar moneda:</p>
-      <p-dropdown 
-        [options]="coins" 
+      <p-dropdown
+        [options]="coins"
         placeholder="Selecciona moneda"
         [(ngModel)]="currencyBase"
-        [editable]="false" 
+        [editable]="false"
         (onChange)="changeCurrency($event)"
         optionLabel="key" />
     </div>
